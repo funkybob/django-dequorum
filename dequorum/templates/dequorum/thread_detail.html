@@ -1,0 +1,16 @@
+{% extends "dequorum/base.html" %}
+
+{% block content %}
+
+<h1> {{ thread.title }} [{{ messages.count }} messages] </h1>
+
+<ol>
+{% for message in messages %}
+    <li>
+        <h2> By: {{ message.author }} </h2>
+        <div> {{ message.body }} </div>
+    </li>
+{% endfor %}
+</ol>
+
+{% endblock %}
