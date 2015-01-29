@@ -13,5 +13,8 @@
 {% endfor %}
 </ol>
 
+{% if user.is_authenticated %}
 <a href="{% url 'message-create' pk=thread.pk %}">Post Message</a>
+{% endif %}
+
 {% endblock %}
