@@ -1,3 +1,12 @@
 from django.shortcuts import render
 
-# Create your views here.
+from .models import Thread
+
+
+def thread_list(request):
+
+    threads = Thread.objects.visible()
+
+    return render(request, 'dequorum/thread_list.html', {
+        'threads': threads,
+    })
