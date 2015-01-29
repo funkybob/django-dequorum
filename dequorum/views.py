@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
-from .forms import ThreadCreateForm
+from .forms import ThreadCreateForm, MessageCreateForm
 from .models import Thread
 
 
@@ -37,5 +37,27 @@ def thread_create(request):
         form = ThreadCreateForm()
 
     return render(request, 'dequorum/thread_create.html', {
+        'form': form,
+    })
+
+
+@login_required
+def message_create(request, pk):
+    thread = get_object_or_404(Thread.objects.visible(), pk=pk)
+
+    if request.method == 'POST':
+        form = MessageCreateForm(request.POST)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.author = request.user
+            obj.thread = thread
+            obj.save()
+            return redirect(thread)
+
+    else:
+        form = MessageCreateForm()
+
+    return render(request, 'dequorum/message_create.html', {
+        'thread': thread,
         'form': form,
     })
