@@ -1,6 +1,13 @@
 from django.conf import settings
 from django.db import models
+from django.db.models.query import QuerySet
 from django.utils import timezone
+
+
+class VisibleQuerySet(QuerySet):
+
+    def visible(self):
+        return self.filter(is_visible=True)
 
 
 class Thread(models.Model):
@@ -11,7 +18,9 @@ class Thread(models.Model):
     is_open = models.BooleanField(default=True)
     is_visible = models.BooleanField(default=True)
 
-    tags = models.ManyToManyField('Tag')
+    tags = models.ManyToManyField('Tag', blank=True)
+
+    objects = VisibleQuerySet.as_manager()
 
 
 class Message(models.Model):
@@ -20,6 +29,8 @@ class Message(models.Model):
     body = models.TextField(blank=True)
     created = models.DateTimeField(default=timezone.now)
     is_visible = models.BooleanField(default=True)
+
+    objects = VisibleQuerySet.as_manager()
 
 
 class Tag(models.Model):
