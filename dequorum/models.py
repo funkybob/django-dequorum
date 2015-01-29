@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models.query import QuerySet
 from django.utils import timezone
@@ -21,6 +22,9 @@ class Thread(models.Model):
     tags = models.ManyToManyField('Tag', blank=True)
 
     objects = VisibleQuerySet.as_manager()
+
+    def get_absolute_url(self):
+        return reverse('thread-detail', kwargs={'pk': self.pk})
 
 
 class Message(models.Model):
