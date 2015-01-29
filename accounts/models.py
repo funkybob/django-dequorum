@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
 
+
 class UserManager(BaseUserManager):
 
     def create_user(self, email, password, **kwargs):
@@ -26,6 +27,7 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
+
 class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
 
@@ -37,8 +39,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def get_full_name(self):
         return self.email
+
     def get_short_name(self):
         return self.email
-
-
-
