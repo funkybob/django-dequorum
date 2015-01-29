@@ -15,7 +15,7 @@
     <tbody>
 {% for thread in threads %}
     <tr>
-        <td> {{ thread.title }}</td>
+        <td> <a href="{% url 'thread-detail' pk=thread.pk %}">{{ thread.title }}</a> </td>
         <td> {{ thread.messages.count }} </td>
         <td> {% for tag in thread.tags.all %}{{ tag.name }} {% endfor %} </td>
     </tr>
