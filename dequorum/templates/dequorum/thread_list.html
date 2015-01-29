@@ -1,0 +1,26 @@
+{% extends "dequorum/base.html" %}
+
+{% block content %}
+
+<h1> Threads </h1>
+
+<table>
+    <thead>
+        <tr>
+            <th> Thread </th>
+            <th> Messages </th>
+            <th> Tags </th>
+        </tr>
+    </thead>
+    <tbody>
+{% for thread in threads %}
+    <tr>
+        <td> {{ thread.title }}</td>
+        <td> {{ thread.messages.count }} </td>
+        <td> {% for tag in thread.tags.all %}{{ tag.name }} {% endfor %} </td>
+    </tr>
+{% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
