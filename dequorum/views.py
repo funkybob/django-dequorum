@@ -27,17 +27,26 @@ def thread_detail(request, pk):
 def thread_create(request):
 
     if request.method == 'POST':
-        form = ThreadCreateForm(request.POST)
-        if form.is_valid():
-            obj = form.save(commit=False)
-            obj.owner = request.user
-            obj.save()
-            return redirect(obj)
+        thread_form = ThreadCreateForm(request.POST)
+        message_form = MessageCreateForm(request.POST)
+        if all([thread_form.is_valid(), message_form.is_valid()]):
+            thread = thread_form.save(commit=False)
+            thread.owner = request.user
+            thread.save()
+
+            message = message_form.save(commit=False)
+            message.author = request.user
+            message.thread = thread
+            message.save()
+
+            return redirect(thread)
     else:
-        form = ThreadCreateForm()
+        thread_form = ThreadCreateForm()
+        message_form = MessageCreateForm()
 
     return render(request, 'dequorum/thread_create.html', {
-        'form': form,
+        'thread_form': thread_form,
+        'message_form': message_form,
     })
 
 
