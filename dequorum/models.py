@@ -24,7 +24,7 @@ class Thread(models.Model):
     objects = VisibleQuerySet.as_manager()
 
     def get_absolute_url(self):
-        return reverse('thread-detail', kwargs={'pk': self.pk})
+        return reverse('thread-detail', kwargs={'thread_pk': self.pk})
 
 
 class Message(models.Model):
