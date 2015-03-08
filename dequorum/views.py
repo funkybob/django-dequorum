@@ -1,16 +1,19 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
-from .forms import ThreadCreateForm, MessageCreateForm
+from .forms import ThreadCreateForm, MessageCreateForm, TagFilterForm
 from .models import Thread
 
 
 def thread_list(request):
-
     threads = Thread.objects.visible()
+    tag_form = TagFilterForm(request.GET)
+    if tag_form.is_valid():
+        threads = threads.filter(tags__in=tag_form.cleaned_data['tag'])
 
     return render(request, 'dequorum/thread_list.html', {
         'threads': threads,
+        'tag_form': tag_form,
     })
 
 
