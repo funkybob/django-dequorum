@@ -145,6 +145,11 @@ header a {
     margin: 0 auto;
 }
 
+.thread {
+    border-bottom: 1px solid #A7DBD8;
+
+}
+
 footer {
     background-color: #A7DBD8;
     border-top: 1px solid #69D2E7;
