@@ -14,8 +14,8 @@ def thread_list(request):
     })
 
 
-def thread_detail(request, pk):
-    thread = get_object_or_404(Thread.objects.visible(), pk=pk)
+def thread_detail(request, thread_pk):
+    thread = get_object_or_404(Thread.objects.visible(), pk=thread_pk)
 
     return render(request, 'dequorum/thread_detail.html', {
         'thread': thread,
@@ -51,8 +51,8 @@ def thread_create(request):
 
 
 @login_required
-def message_create(request, pk):
-    thread = get_object_or_404(Thread.objects.visible(), pk=pk)
+def message_create(request, thread_pk):
+    thread = get_object_or_404(Thread.objects.visible(), pk=thread_pk)
 
     if request.method == 'POST':
         form = MessageCreateForm(request.POST)
