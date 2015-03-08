@@ -30,7 +30,7 @@ class Thread(models.Model):
 class Message(models.Model):
     thread = models.ForeignKey('Thread', related_name='messages')
     author = models.ForeignKey(settings.AUTH_USER_MODEL)
-    body = models.TextField(blank=True)
+    body = models.TextField()
     created = models.DateTimeField(default=timezone.now)
     is_visible = models.BooleanField(default=True)
 
