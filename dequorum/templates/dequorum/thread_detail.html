@@ -14,7 +14,7 @@
 </ol>
 
 {% if user.is_authenticated %}
-<a href="{% url 'message-create' pk=thread.pk %}">Post Message</a>
+<a href="{% url 'message-create' thread_pk=thread.pk %}">Post Message</a>
 {% endif %}
 
 {% endblock %}
