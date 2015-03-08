@@ -5,7 +5,8 @@
 <form method="POST" action="">
 {% csrf_token %}
     <table>
-{{ form.as_table }}
+{{ thread_form.as_table }}
+{{ message_form.as_table }}
     </table>
     <button type="submit">Create</button>
 </form>
