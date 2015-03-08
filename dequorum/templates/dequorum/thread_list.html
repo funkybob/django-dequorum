@@ -4,26 +4,27 @@
 
 <h1> Threads </h1>
 
-<table>
 {% if user.is_authenticated %}
-    <caption><a href="{% url 'thread-create' %}">Create Thread</a></caption>
+    <a href="{% url 'thread-create' %}" class="button">Create Thread</a>
 {% endif %}
-    <thead>
-        <tr>
-            <th> Thread </th>
-            <th> Messages </th>
-            <th> Tags </th>
-        </tr>
-    </thead>
-    <tbody>
+
+    <h2> FIlter by tags </h2>
+    <form method="GET" action="">
+    <table>
+        {{ tag_form.as_table }}
+        <button type="submit">Filter</button>
+    </table>
+    </form>
 {% for thread in threads %}
-    <tr>
-        <td> <a href="{% url 'thread-detail' thread_pk=thread.pk %}">{{ thread.title }}</a> </td>
-        <td> {{ thread.messages.count }} </td>
-        <td> {% for tag in thread.tags.all %}{{ tag.name }} {% endfor %} </td>
-    </tr>
+    <div class="thread">
+        <h2><a href="{% url 'thread-detail' thread_pk=thread.pk %}">{{ thread.title }}</a></h2>
+        <small>Created by {{ thread.owner }} at {{ thread.created }}</small><br />
+        {% for tag in thread.tags.all %}
+            <small><a href="?tag={{ tag.pk|urlencode }}">{{ tag.name }}</a></small><br />
+        {% endfor %}
+        <p> {{ thread.messages.count }} Messages </p>
+    </div>
 {% endfor %}
-    </tbody>
-</table>
+
 
 {% endblock %}
