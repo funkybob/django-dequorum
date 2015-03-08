@@ -7,14 +7,20 @@
 <ol>
 {% for message in messages %}
     <li>
-        <h2> By: {{ message.author }} </h2>
+        <h2> By: {{ message.author }} on {{ message.created|date }}</h2>
         <div> {{ message.body }} </div>
     </li>
 {% endfor %}
 </ol>
 
 {% if user.is_authenticated %}
-<a href="{% url 'message-create' thread_pk=thread.pk %}">Post Message</a>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <button type="submit">Create</button>
+    </form>
 {% endif %}
 
 {% endblock %}

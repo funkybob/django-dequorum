@@ -14,15 +14,6 @@ def thread_list(request):
     })
 
 
-def thread_detail(request, thread_pk):
-    thread = get_object_or_404(Thread.objects.visible(), pk=thread_pk)
-
-    return render(request, 'dequorum/thread_detail.html', {
-        'thread': thread,
-        'messages': thread.messages.visible(),
-    })
-
-
 @login_required
 def thread_create(request):
 
@@ -50,23 +41,27 @@ def thread_create(request):
     })
 
 
-@login_required
-def message_create(request, thread_pk):
+def thread_detail(request, thread_pk):
     thread = get_object_or_404(Thread.objects.visible(), pk=thread_pk)
 
-    if request.method == 'POST':
-        form = MessageCreateForm(request.POST)
-        if form.is_valid():
-            obj = form.save(commit=False)
-            obj.author = request.user
-            obj.thread = thread
-            obj.save()
-            return redirect(thread)
+    if request.user.is_authenticated():
+        if request.method == 'POST':
+            form = MessageCreateForm(request.POST)
+            if form.is_valid():
+                obj = form.save(commit=False)
+                obj.author = request.user
+                obj.thread = thread
+                obj.save()
+                return redirect(thread)
+
+        else:
+            form = MessageCreateForm()
 
     else:
-        form = MessageCreateForm()
+        form = None
 
-    return render(request, 'dequorum/message_create.html', {
+    return render(request, 'dequorum/thread_detail.html', {
         'thread': thread,
+        'messages': thread.messages.visible(),
         'form': form,
     })
