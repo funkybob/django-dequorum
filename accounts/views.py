@@ -1,3 +1,16 @@
-from django.shortcuts import render
+from django.shortcuts import redirect
+from django.views.generic import CreateView
 
-# Create your views here.
+from .forms import RegistrationForm
+from .models import User
+
+
+class RegistrationView(CreateView):
+    form_class = RegistrationForm
+    model = User
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.set_password(User.objects.make_random_password())
+        obj.save()
+        return redirect('accounts:register-password')
