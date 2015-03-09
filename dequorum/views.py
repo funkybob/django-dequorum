@@ -25,7 +25,7 @@ def thread_list(request, path_tags=''):
                 threads = threads.filter(tags__in=tag_form.cleaned_data['tag'])
 
     return render(request, 'dequorum/thread_list.html', {
-        'threads': threads,
+        'threads': threads.prefetch_related('tags'),
         'tag_form': tag_form,
     })
 
