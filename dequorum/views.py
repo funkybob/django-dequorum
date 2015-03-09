@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
 from .forms import ThreadCreateForm, MessageCreateForm, TagFilterForm
-from .models import Thread
+from .models import Thread, Tag
 
 
 def thread_list(request):
@@ -23,9 +23,13 @@ def thread_create(request):
     if request.method == 'POST':
         thread_form = ThreadCreateForm(request.POST)
         message_form = MessageCreateForm(request.POST)
-        if all([thread_form.is_valid(), message_form.is_valid()]):
+        tag_form = TagFilterForm(request.POST)
+        if all([thread_form.is_valid(), message_form.is_valid(), tag_form.is_valid()]):
             thread = thread_form.save(commit=False)
             thread.owner = request.user
+            thread.save()
+            tag = Tag.objects.get(id=tag_form.cleaned_data['tag'])
+            thread.tags.add(tag)
             thread.save()
 
             message = message_form.save(commit=False)
@@ -37,10 +41,12 @@ def thread_create(request):
     else:
         thread_form = ThreadCreateForm()
         message_form = MessageCreateForm()
+        tag_form = TagFilterForm()
 
     return render(request, 'dequorum/thread_create.html', {
         'thread_form': thread_form,
         'message_form': message_form,
+        'tag_form': tag_form,
     })
 
 
