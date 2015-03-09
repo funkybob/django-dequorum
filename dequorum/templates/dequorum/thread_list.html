@@ -16,7 +16,7 @@
     </table>
     </form>
 {% for thread in threads %}
-    <div class="{% if forloop.first %}topborder {% endif %}{% cycle 'thread1' 'thread2' %}">
+    <div class="{% cycle 'thread1' 'thread2' %}">
         <h2><a href="{% url 'thread-detail' thread_pk=thread.pk %}">{{ thread.title }}</a></h2>
         <small>Created by {{ thread.owner }} at {{ thread.created }}</small><br />
         {% for tag in thread.tags.all %}
@@ -25,6 +25,5 @@
         <p> {{ thread.messages.count }} Messages </p>
     </div>
 {% endfor %}
-
 
 {% endblock %}

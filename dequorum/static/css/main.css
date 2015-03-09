@@ -157,6 +157,20 @@ header a {
     margin: 10px auto;
 }
 
+.thread1 {
+    padding: 10px;
+    border:1px solid #999999;
+    background-color: #f8f8ff;
+    margin-bottom: 10px;
+}
+
+.thread2 {
+    padding: 10px;
+    border:1px solid #999999;
+    background-color: #e5ffdf;
+    margin-bottom: 10px;
+}
+
 .messageBox {
     padding: 0;
     margin-bottom: 15px;
