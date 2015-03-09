@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
 from .forms import ThreadCreateForm, MessageCreateForm, TagFilterForm
-from .models import Thread, Tag
+from .models import Thread
 
 
 def thread_list(request, path_tags=''):
@@ -41,8 +41,7 @@ def thread_create(request):
             thread = thread_form.save(commit=False)
             thread.owner = request.user
             thread.save()
-            tag = Tag.objects.get(id=tag_form.cleaned_data['tag'])
-            thread.tags.add(tag)
+            thread.tags.add(*list(tag_form.cleaned_data['tag']))
             thread.save()
 
             message = message_form.save(commit=False)
