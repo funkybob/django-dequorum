@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count, Prefetch
 from django.shortcuts import render, redirect, get_object_or_404
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .forms import ThreadCreateForm, MessageCreateForm, TagFilterForm
 from .models import Thread, Message
@@ -25,9 +26,19 @@ def thread_list(request, path_tags=''):
         if tag_qset.count():
                 threads = threads.filter(tags__in=tag_form.cleaned_data['tag'])
 
+    paginator = Paginator(threads, 10)
+    page_num = request.GET.get('page')
+
+    try:
+        page = paginator.page(page_num)
+    except PageNotAnInteger:
+        page = paginator.page(1)
+    except EmptyPage:
+        page = paginator.page(paginator.num_pages)
+
     return render(request, 'dequorum/thread_list.html', {
-        'threads': threads.prefetch_related('tags'),
         'tag_form': tag_form,
+        'page': page,
     })
 
 

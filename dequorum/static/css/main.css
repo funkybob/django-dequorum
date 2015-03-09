@@ -111,6 +111,10 @@ p {
 	margin: 0;
 }
 
+p.dateTime {
+    font-size: 10px;
+}
+
 h2 {
     margin: 0;
 }
@@ -150,24 +154,49 @@ header a {
 
 .container {
     max-width: 1000px;
-    margin: 0 auto;
+    margin: 10px auto;
 }
 
 .thread1 {
-    border-left: 1px solid #999999;
-    border-right: 1px solid #999999;
-	padding: 10px;
+    padding: 10px;
+    border:1px solid #999999;
+    background-color: #f8f8ff;
+    margin-bottom: 10px;
 }
 
 .thread2 {
-    border-left: 1px solid #999999;
-    border-right: 1px solid #999999;
-	background-color: #b0e0e6;
+    padding: 10px;
+    border:1px solid #999999;
+    background-color: #e5ffdf;
+    margin-bottom: 10px;
+}
+
+.messageBox {
+    padding: 0;
+    margin-bottom: 15px;
+    border: 1px solid #999999;
+}
+
+.messageHead1 {
+	padding: 10px;
+    border-bottom:1px solid #999999;
+    background-color: #f8f8ff;
+}
+
+.messageHead2 {
+    border-bottom: 1px solid #999999;
+	background-color: #e5ffdf;
 	padding: 10px;
 }
 
-.topborder {
-	border-top: 1px solid #999999;
+.messageBody1 {
+    background-color: #ffffff;
+    padding: 10px;
+}
+
+.messageBody2 {
+    background-color: #ffffff;
+    padding: 10px
 }
 
 footer {
