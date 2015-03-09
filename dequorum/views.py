@@ -9,7 +9,9 @@ def thread_list(request):
     threads = Thread.objects.visible()
     tag_form = TagFilterForm(request.GET)
     if tag_form.is_valid():
-        threads = threads.filter(tags__in=tag_form.cleaned_data['tag'])
+        tag_qset = tag_form.cleaned_data['tag']
+        if tag_qset.count():
+                threads = threads.filter(tags__in=tag_form.cleaned_data['tag'])
 
     return render(request, 'dequorum/thread_list.html', {
         'threads': threads,
