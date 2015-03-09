@@ -8,22 +8,55 @@
     <a href="{% url 'thread-create' %}" class="button">Create Thread</a>
 {% endif %}
 
-    <h2> FIlter by tags </h2>
+    <h2> Filter by tags </h2>
     <form method="GET" action="">
     <table>
         {{ tag_form.as_table }}
         <button type="submit">Filter</button>
     </table>
     </form>
-{% for thread in threads %}
-    <div class="{% cycle 'thread1' 'thread2' %}">
-        <h2><a href="{% url 'thread-detail' thread_pk=thread.pk %}">{{ thread.title }}</a></h2>
-        <small>Created by {{ thread.owner }} at {{ thread.created }}</small><br />
-        {% for tag in thread.tags.all %}
+
+<div class="pagination">
+    <span class="step-links">
+        {% if page.has_previous %}
+            <a href="?page={{ page.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page.number }} of {{ page.paginator.num_pages }}.
+        </span>
+
+        {% if page.has_next %}
+            <a href="?page={{ page.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+
+    {% for page in page.objecct_list %}
+        <div class="{% cycle 'thread1' 'thread2' %}">
+        <h2><a href="{% url 'thread-detail' thread_pk=page.pk %}">{{ page.title }}</a></h2>
+        <small>Created by {{ page.owner }} at {{ page.created }}</small><br />
+        {% for tag in page.tags.all %}
 		<small><a href="?tag={{ tag.pk|urlencode }}">{{ tag.name }}</a></small>{% if not forloop.last %} | {% endif %}
         {% endfor %}
-        <p> {{ thread.messages.count }} Messages </p>
+        <p> {{ page.messages.count }} Messages </p>
     </div>
-{% endfor %}
+    {% endfor %}
+
+<div class="pagination">
+    <span class="step-links">
+        {% if page.has_previous %}
+            <a href="?page={{ page.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page.number }} of {{ page.paginator.num_pages }}.
+        </span>
+
+        {% if page.has_next %}
+            <a href="?page={{ page.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
 
 {% endblock %}

@@ -111,7 +111,7 @@ p {
 	margin: 0;
 }
 
-.dateTime p {
+p.dateTime {
     font-size: 10px;
 }
 
