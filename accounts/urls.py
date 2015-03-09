@@ -1,8 +1,9 @@
-from django.conf.urls import url, patterns
+from django.conf.urls import url, patterns, include
 
 from . import views
 
 urlpatterns = patterns('django.contrib.auth.views',
+    url(r'^', include('django.contrib.auth.urls')),
     url(r'^register/$', views.RegistrationView.as_view(), name='register'),
     url(r'^register/verify/$', 'password_reset', {
         'template_name': 'registration/initial_password.html',
