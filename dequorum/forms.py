@@ -22,6 +22,6 @@ class MessageCreateForm(forms.ModelForm):
 class TagFilterForm(forms.Form):
     tag = forms.ModelMultipleChoiceField(
         queryset=models.Tag.objects.all(),
-        required=True,
+        required=False,
         widget=widgets.CheckboxSelectMultiple
     )
