@@ -1,8 +1,9 @@
-from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.db.models import Count, Prefetch
+from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import ThreadCreateForm, MessageCreateForm, TagFilterForm
-from .models import Thread
+from .models import Thread, Message
 
 
 def thread_list(request, path_tags=''):
@@ -58,7 +59,12 @@ def thread_create(request):
 
 
 def thread_detail(request, thread_pk):
-    thread = get_object_or_404(Thread.objects.visible(), pk=thread_pk)
+    thread_qs = (Thread.objects
+        .visible()
+        .annotate(message_count=Count('messages'))
+        .prefetch_related(Prefetch('messages', Message.objects.visible().select_related('author')))
+    )
+    thread = get_object_or_404(thread_qs, pk=thread_pk)
 
     if request.user.is_authenticated():
         if request.method == 'POST':
@@ -78,6 +84,6 @@ def thread_detail(request, thread_pk):
 
     return render(request, 'dequorum/thread_detail.html', {
         'thread': thread,
-        'messages': thread.messages.visible(),
+        'messages': thread.messages.all(),
         'form': form,
     })
