@@ -5,8 +5,19 @@ from .forms import ThreadCreateForm, MessageCreateForm, TagFilterForm
 from .models import Thread
 
 
-def thread_list(request):
+def thread_list(request, path_tags=''):
     threads = Thread.objects.visible()
+
+    # Select tags - AND
+    selected_tags = [
+        tag
+        for tag in (tag.strip() for tag in path_tags.split('/'))
+        if tag
+    ]
+    for tag in selected_tags:
+        threads = threads.filter(tags__name=tag)
+
+    # Search tags - OR
     tag_form = TagFilterForm(request.GET)
     if tag_form.is_valid():
         tag_qset = tag_form.cleaned_data['tag']
