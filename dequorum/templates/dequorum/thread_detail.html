@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h1> {{ thread.title }} [{{ messages.count }} messages] </h1>
+<h1> {{ thread.title }} [{{ thread.message_count }} messages] </h1>
 
 {% for message in messages %}
     <div class="messageBox">

@@ -8,6 +8,7 @@ from .models import User
 class RegistrationView(CreateView):
     form_class = RegistrationForm
     model = User
+    template_name = 'registration/register.html'
 
     def form_valid(self, form):
         obj = form.save(commit=False)
