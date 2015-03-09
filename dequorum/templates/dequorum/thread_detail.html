@@ -4,21 +4,23 @@
 
 <h1> {{ thread.title }} [{{ messages.count }} messages] </h1>
 
-<ol>
 {% for message in messages %}
-    <li>
-        <h2> By: {{ message.author }} on {{ message.created|date }}</h2>
-        <div> {{ message.body }} </div>
-    </li>
+    <div class="messageBox">
+        <div class="{% cycle 'messageHead1' 'messageHead2' %}">
+            <h2> By: {{ message.author }} </h2>
+            <p class="dateTime">{{ message.created|date }} | {{ message.created|time }}</p>
+        </div>
+        <div class="{% cycle 'messageBody1' 'messageBody2' %}">
+            {{ message.body }}
+        </div>
+    </div>
 {% endfor %}
-</ol>
 
 {% if user.is_authenticated %}
+    <h2>Add new reply</h2>
     <form method="POST" action="">
         {% csrf_token %}
-        <table>
-            {{ form.as_table }}
-        </table>
+            {{ form.body }} <br /><br />
         <button type="submit">Create</button>
     </form>
 {% endif %}
