@@ -27,9 +27,9 @@
                 <img src="http://www.placehold.it/100x50" alt="Logo" />
                 <div class="pull-right">
                     {% if user.is_authenticated %}
-                        <a href="#"><i class="fa fa-sign-out"></i> Logout</a>
+		    <a href="{% url 'logout' %}"><i class="fa fa-sign-out"></i> Logout</a>
                     {% else %}
-                        <a href="#"><i class="fa fa-sign-in"></i> Login</a>
+		    <a href="{% url 'login' %}"><i class="fa fa-sign-in"></i> Login</a>
                     {% endif %}
                 </div>
             </div>
