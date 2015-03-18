@@ -2,7 +2,7 @@
 A simple web forum Django application
 
 # Environment setup
-python3 environment setup. You can use *either* virtualenv *or* virtualenv with virtualenvwrapper installed.
+python3 environment setup. You can use *either* virtualenv ([documentation](http://docs.python-guide.org/en/latest/dev/virtualenvs/)) *or* virtualenv with virtualenvwrapper ([documentation](https://virtualenvwrapper.readthedocs.org/en/latest/index.html)) installed.
 
 * [virtualenv](https://pypi.python.org/pypi/virtualenv)
 
@@ -30,7 +30,7 @@ python3 environment setup. You can use *either* virtualenv *or* virtualenv with 
     (django-python3) ~/venvs/melb-django$ deactivate
     ```
  
-* virtualenv with ([virtualenvwrapper](https://pypi.python.org/pypi/virtualenvwrapper/) installed
+* virtualenv with [virtualenvwrapper](https://pypi.python.org/pypi/virtualenvwrapper/) installed
 
     ``` 
     ~$ mkvirtualenv -p `which python3` django-python3
@@ -51,8 +51,6 @@ python3 environment setup. You can use *either* virtualenv *or* virtualenv with 
 
 Notes: 
 
-* [virtualenv doc](http://docs.python-guide.org/en/latest/dev/virtualenvs/).
-* [virtualenvwrapper doc](https://virtualenvwrapper.readthedocs.org/en/latest/index.html)
 * `(django-python3)` prompt change at your terminal indicating you're on `django-python3` virtualenv.
 
 # Installation
