@@ -2,30 +2,67 @@
 A simple web forum Django application
 
 # Environment setup
+python3 environment setup. You can use *either* virtualenv *or* virtualenv with virtualenvwrapper installed.
 
-1. Setup [virtualenv](https://pypi.python.org/pypi/virtualenv) with python3 ([virtualenvwrapper](https://pypi.python.org/pypi/virtualenvwrapper/) installed)
+* [virtualenv](https://pypi.python.org/pypi/virtualenv)
+
+    Create new virtual environments directory, e.g. `venvs`
+    ```
+    ~$ mkdir venvs
+    ~$ cd venvs/
+    ~/venvs$ 
+    ```
+
+    Create new virtual environment
+    ```
+    ~/venvs$ virtualenv -p `which python3` melb-django
+    ```
+
+    To start working on `django-python3` virtualenv
+    ```
+    ~/venvs$ cd melb-django/
+    ~/venvs/melb-django$ source bin/activate
+    ```
+ 
+    To stop working on `django-python3` virtualenv
+
+    ```
+    (django-python3) ~/venvs/melb-django$ deactivate
+    ```
+ 
+* virtualenv with ([virtualenvwrapper](https://pypi.python.org/pypi/virtualenvwrapper/) installed
 
     ``` 
-    $ mkvirtualenv --python=/usr/bin/python3 django-python3
+    ~$ mkvirtualenv -p `which python3` django-python3
     ```
 
-   To start working on virtualenv
+    To start working on `django-python3` virtualenv
 
     ```
-    $ workon django-python3
-    (django-python3) ~/
+    ~$ workon django-python3
+    (django-python3) ~$
+    ```
+    
+    To stop working on `django-python3` virtualenv
+
+    ```
+    (django-python3) ~$ deactivate
     ```
 
-    If you are using [zsh](http://www.zsh.org/) there will be a `(django-python3)` at your terminal indicating you're on `django-python3` virtualenv.
+Notes: 
+
+* [virtualenv doc](http://docs.python-guide.org/en/latest/dev/virtualenvs/).
+* [virtualenvwrapper doc](https://virtualenvwrapper.readthedocs.org/en/latest/index.html)
+* `(django-python3)` prompt change at your terminal indicating you're on `django-python3` virtualenv.
 
 # Installation
 
 1. Create new working directory
 
     ```
-    ~(django-python3) /$ mkdir melb-django
-    ~(django-python3) /$ cd melb-django/
-    ~(django-python3) /melb-django$ 
+    (django-python3) ~$ mkdir melb-django
+    (django-python3) ~$ cd melb-django/
+    (django-python3) ~/melb-django$ 
     ```
 
 2. Clone the git repository
