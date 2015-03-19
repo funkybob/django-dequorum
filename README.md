@@ -53,7 +53,7 @@ Notes:
 
 * `(django-python3)` prompt change at your terminal indicating you're on `django-python3` virtualenv.
 
-# Installation
+# Quickstart 
 
 1. Create new working directory
 
